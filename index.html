@@ -1,193 +1,230 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>Mustafa Acar - Portfolio</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0b0b0b;
-      color: #f5f5f5;
-      padding: 20px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mustafa Acar — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0d; --panel:#111116; --line:#232329;
+    --gold:#e8b84b; --gold-dim:#8a6f2d; --text:#eceae3; --text-dim:#9a988f;
+    --mono:'JetBrains Mono',monospace; --disp:'Space Grotesk',sans-serif; --body:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg); color:var(--text); font-family:var(--body); line-height:1.6; overflow-x:hidden;}
+  ::selection{background:var(--gold); color:#0a0a0d;}
 
-    .container {
-      background: #111;
-      padding: 30px;
-      border-radius: 14px;
-      width: 90%;
-      max-width: 900px;
-      margin: 20px auto;
-      border: 1px solid #bfa23a;
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
-    }
+  .progress{position:fixed; top:0; left:0; height:2px; background:var(--gold); width:0%; z-index:100; transition:width .1s linear;}
+  nav{position:fixed; top:0; left:0; right:0; z-index:90; display:flex; justify-content:space-between; align-items:center;
+      padding:18px clamp(20px,5vw,60px); backdrop-filter:blur(10px); background:rgba(10,10,13,.55); border-bottom:1px solid var(--line);}
+  .mark{font-family:var(--mono); font-size:14px; letter-spacing:.05em; color:var(--gold);}
+  .langs{display:flex; border:1px solid var(--line); border-radius:999px; overflow:hidden;}
+  .langs button{font-family:var(--mono); font-size:12px; background:none; border:none; color:var(--text-dim); padding:6px 16px; cursor:pointer; transition:.25s;}
+  .langs button.on{background:var(--gold); color:#0a0a0d;}
 
-    h1 {
-      color: #f9d857;
-      font-size: 32px;
-    }
+  .wrap{max-width:860px; margin:0 auto; padding:0 clamp(20px,5vw,60px);}
 
-    h2 {
-      color: #f3c94b;
-      border-bottom: 1px solid #333;
-      padding-bottom: 5px;
-      margin-top: 20px;
-    }
+  .hero{min-height:92vh; display:flex; flex-direction:column; justify-content:center; padding-top:80px;}
+  .badge{display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:12px; color:var(--gold);
+         border:1px solid var(--gold-dim); padding:5px 14px; border-radius:999px; width:fit-content; margin-bottom:28px;}
+  .badge::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--gold); box-shadow:0 0 8px var(--gold);}
+  h1{font-family:var(--disp); font-size:clamp(42px,7vw,68px); font-weight:600; line-height:1.05; letter-spacing:-.02em;}
+  .role{font-family:var(--body); font-size:clamp(16px,2vw,19px); color:var(--text-dim); margin-top:14px; max-width:520px;}
+  .lede{margin-top:28px; font-size:16px; color:var(--text-dim); max-width:580px;}
+  .cta{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap;}
+  .btn{font-family:var(--mono); font-size:13px; padding:11px 22px; border-radius:2px; text-decoration:none; transition:.25s; border:1px solid var(--line);}
+  .btn.fill{background:var(--gold); color:#0a0a0d; border-color:var(--gold);}
+  .btn.fill:hover{box-shadow:0 0 22px rgba(232,184,75,.35); transform:translateY(-2px);}
+  .btn.ghost{color:var(--text); }
+  .btn.ghost:hover{border-color:var(--gold-dim); color:var(--gold); transform:translateY(-2px);}
 
-    .subtitle {
-      color: #ccc;
-      margin-bottom: 10px;
-    }
+  .section{padding:90px 0; border-top:1px solid var(--line);}
+  h2{font-family:var(--disp); font-size:clamp(26px,3.5vw,34px); font-weight:600; max-width:620px;}
+  .about-text{margin-top:22px; max-width:640px; color:var(--text-dim); font-size:16px;}
 
-    .tag {
-      display: inline-block;
-      background: #1b1b1b;
-      border: 1px solid #bfa23a;
-      border-radius: 20px;
-      padding: 4px 10px;
-      font-size: 12px;
-      margin: 5px 5px 0 0;
-    }
+  .tags{display:flex; flex-wrap:wrap; gap:10px; margin-top:34px;}
+  .tag{font-family:var(--mono); font-size:12.5px; border:1px solid var(--line); padding:7px 14px; color:var(--text-dim);
+       opacity:0; transform:translateY(10px); transition:opacity .5s ease, transform .5s ease, border-color .25s, color .25s;}
+  .tag.in{opacity:1; transform:none;}
+  .tag:hover{border-color:var(--gold-dim); color:var(--gold);}
 
-    ul {
-      margin-left: 20px;
-      line-height: 1.6;
-    }
+  .cat{margin-top:64px;}
+  .cat:first-child{margin-top:48px;}
+  .cat-title{font-family:var(--disp); font-size:20px; font-weight:600; padding-bottom:14px; border-bottom:1px solid var(--line); margin-bottom:26px;}
+  .grid{display:grid; grid-template-columns:1fr; gap:18px;}
+  .card{position:relative; background:var(--panel); border-left:2px solid var(--line); padding:22px 24px;
+        opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease, border-color .3s;}
+  .card.in{opacity:1; transform:none;}
+  .card:hover{border-left-color:var(--gold); background:#141419;}
+  .card h3{font-family:var(--disp); font-size:17px; font-weight:600; margin-bottom:8px;}
+  .card p{font-size:14.5px; color:var(--text-dim);}
+  .card code{font-family:var(--mono); color:var(--gold); font-size:13px;}
 
-    a {
-      color: #f3c94b;
-      text-decoration: none;
-    }
+  .contact{text-align:left;}
+  .contact a{display:block; font-family:var(--disp); font-size:clamp(22px,4vw,30px); color:var(--text); text-decoration:none;
+             margin-top:14px; width:fit-content; position:relative;}
+  .contact a::after{content:""; position:absolute; left:0; bottom:-4px; width:0; height:2px; background:var(--gold); transition:width .3s;}
+  .contact a:hover::after{width:100%;}
+  .contact a:hover{color:var(--gold);}
 
-    .lang-buttons {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: 15px;
-    }
+  footer{padding:36px 0 50px; font-family:var(--mono); font-size:12px; color:var(--text-dim); border-top:1px solid var(--line);}
 
-    .lang-buttons button {
-      background: #1b1b1b;
-      border: 1px solid #bfa23a;
-      color: #f3d069;
-      padding: 6px 12px;
-      margin-left: 10px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
+  [data-lang="en"]{display:none;}
+  html[data-active="en"] [data-lang="tr"]{display:none;}
+  html[data-active="en"] [data-lang="en"]{display:block;}
 
-    .lang-buttons button:hover {
-      background: #bfa23a;
-      color: #000;
-    }
-
-    .footer {
-      margin-top: 20px;
-      font-size: 13px;
-      color: #888;
-    }
-  </style>
-
-  <script>
-    function switchLang(lang) {
-      document.querySelectorAll("[data-lang]").forEach(el => {
-        el.style.display = el.getAttribute("data-lang") === lang ? "block" : "none";
-      });
-    }
-  </script>
+  @media (prefers-reduced-motion: reduce){
+    .tag, .card{opacity:1 !important; transform:none !important; transition:none !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
 </head>
-
-<body onload="switchLang('tr')">
-
-  <div class="container">
-
-    <!-- Dil butonları -->
-    <div class="lang-buttons">
-      <button onclick="switchLang('tr')">TR</button>
-      <button onclick="switchLang('en')">EN</button>
-    </div>
-
-    <!-- -------- TÜRKÇE -------- -->
-    <div data-lang="tr">
-      <h1>Mustafa Acar</h1>
-      <p class="subtitle">Erciyes Üniversitesi – Yazılım Mühendisliği (İngilizce) – 2. Sınıf</p>
-
-      <span class="tag">Java</span>
-      <span class="tag">Python</span>
-      <span class="tag">OOP</span>
-      <span class="tag">NumPy</span>
-      <span class="tag">Yerel Yapay Zeka (Ollama/LLM)</span>
-      <span class="tag">API Entegrasyonu</span>
-      <span class="tag">Algoritmalar</span>
-
-      <h2>Hakkımda</h2>
-      <p>
-        Erciyes Üniversitesi Yazılım Mühendisliği (İngilizce) 2. sınıf öğrencisiyim.
-        Java ve Python ağırlıklı projeler geliştiriyor; nesne yönelimli programlama (OOP), veri yapıları, algoritmalar ve yerel dil modelleri (LLM) alanlarında
-        kendimi sürekli güncel tutuyorum. Ses tanıma sistemleri, API entegrasyonları ve sistem otomasyonları gibi
-        kapsamlı uygulamalar üzerine pratik yapıyorum. Hedefim backend mimarileri ve yapay zeka entegrasyonlarında uzmanlaşmak.
-      </p>
-
-      <h2>Projelerim</h2>
-      <ul> 
-        <li><strong>DesktopAsistant</strong> – Python ile geliştirilmiş; ses tanıma, hava durumu API entegrasyonu ve tarayıcı otomasyonu içeren akıllı masaüstü asistanı.</li>
-        <li><strong>Virtual Book Club & Reading Challenge</strong> – Kapsamlı OOP prensipleri ve sınıf hiyerarşisi kurgulanarak geliştirilmiş Java tabanlı okuma kulübü platformu.</li>
-        <li><strong>Air Quality Monitoring System</strong> – Python ve NumPy kullanılarak geliştirilmiş detaylı laboratuvar veri analizi ve izleme sistemi.</li>
-        <li><strong>QuestionGeneratorAI</strong> – Öğrencilere ve öğretmenlere, verilen konuya uygun çalışma soruları üreten sistem.</li>        
-        <li><strong>E-Ticaret Sistemi</strong> – Ürün yönetimi, sepet ve sipariş akışı simülasyonu.</li>
-        <li><strong>Restoran Sipariş Formu</strong> – Java Swing ile oluşturulmuş sipariş takip sistemi.</li>
-        <li><strong>Library System</strong> – Kitap yönetimi, listeleme, silme ve ekleme işlevleri.</li>
-        <li><strong>AdvancedPersonTableApp</strong> – JTable kullanarak kişi listesi yönetimi.</li>        
-        <li><strong>Diğer Uygulamalar</strong> – To-Do List, Sayı Tahmin Oyunu, Çekiliş Uygulaması, Hesap Makinesi, Uzay Oyunu (Prototip).</li>
-      </ul>
-
-      <h2>İletişim</h2>
-      <p>Email: <a href="mailto:mstacr04@gmail.com">mstacr04@gmail.com</a></p>
-      <p>GitHub: <a href="https://github.com/mstacr06" target="_blank">github.com/mstacr06</a></p>
-    </div>
-
-    <!-- -------- ENGLISH -------- -->
-    <div data-lang="en">
-      <h1>Mustafa Acar</h1>
-      <p class="subtitle">Erciyes University – Software Engineering (English) – 2nd Year</p>
-
-      <span class="tag">Java</span>
-      <span class="tag">Python</span>
-      <span class="tag">OOP</span>
-      <span class="tag">NumPy</span>
-      <span class="tag">Local AI (Ollama/LLM)</span>
-      <span class="tag">API Integration</span>
-      <span class="tag">Algorithms</span>
-
-      <h2>About Me</h2>
-      <p>
-        I am a 2nd-year Software Engineering student at Erciyes University.
-        I focus on Java and Python development, continuously improving myself
-        in Object-Oriented Programming (OOP), data structures, algorithms, and local AI (LLM) integrations. 
-        I enjoy building smart desktop assistants, API integrations, and data processing tools.
-        My main career goal is to specialize in backend architectures and AI systems.
-      </p>
-
-      <h2>My Projects</h2>
-      <ul>
-        <li><strong>Desktop Assistant</strong> – A smart assistant built with Python, featuring speech recognition, weather API integration, and system automation.</li>
-        <li><strong>Virtual Book Club & Reading Challenge</strong> – A Java-based platform built with comprehensive OOP principles and complex class hierarchies.</li>
-        <li><strong>Air Quality Monitoring System</strong> – A data analysis and monitoring system developed using Python and NumPy.</li>
-        <li><strong>QuestionGeneratorAI</strong> – An AI tool that generates customized study questions for students and teachers.</li>
-        <li><strong>E-Commerce System</strong> – Product management, cart logic, and order simulation.</li>
-        <li><strong>Restaurant Order Form</strong> – Order-tracking desktop tool built with Java Swing.</li>
-        <li><strong>Library System</strong> – Book management: add, remove, and list functionality.</li>
-        <li><strong>AdvancedPersonTableApp</strong> – JTable-based person list manager.</li>
-        <li><strong>Other Mini Projects</strong> – To-Do List, Number Guessing Game, Lottery App, Calculator, Space Game (Prototype).</li>
-      </ul>
-
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:mstacr04@gmail.com">mstacr04@gmail.com</a></p>
-      <p>GitHub: <a href="https://github.com/mstacr06" target="_blank">github.com/mstacr06</a></p>
-    </div>
-
-    <div class="footer">
-      <p>Hosted on GitHub Pages.</p>
-    </div>
+<body data-active="tr">
+<div class="progress" id="progress"></div>
+<nav>
+  <span class="mark">MUSTAFA ACAR</span>
+  <div class="langs">
+    <button class="on" data-set="tr">TR</button>
+    <button data-set="en">EN</button>
   </div>
+</nav>
+
+<main class="wrap">
+
+  <section class="hero">
+    <span class="badge" data-lang="tr">Erciyes Üniversitesi · Yazılım Mühendisliği</span>
+    <span class="badge" data-lang="en">Erciyes University · Software Engineering</span>
+
+    <h1>Mustafa Acar</h1>
+
+    <p class="role" data-lang="tr">Yazılım Mühendisliği (İngilizce) — 3. Sınıf</p>
+    <p class="role" data-lang="en">Software Engineering (English) — 3rd Year</p>
+
+    <p class="lede" data-lang="tr">Gerçek zamanlı backend sistemleri, WebRTC/WebSocket iletişim altyapıları, işletme otomasyonu, mobil oyunlar ve donanım seviyesinde FSM tasarımları geliştiriyorum. Uçtan uca çalışan, sahaya inen sistemler kurguluyorum.</p>
+    <p class="lede" data-lang="en">I build real-time backend architectures, WebRTC/WebSocket systems, business automation tools, mobile games, and hardware-level FSM designs — practical, end-to-end engineering.</p>
+
+    <div class="cta">
+      <a class="btn fill" href="mailto:mstacr04@gmail.com">E-posta Gönder</a>
+      <a class="btn ghost" href="https://github.com/mstacr06" target="_blank">GitHub →</a>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <h2 data-lang="tr">Hakkımda</h2>
+    <h2 data-lang="en">About Me</h2>
+    <p class="about-text" data-lang="tr">Erciyes Üniversitesi Yazılım Mühendisliği (İngilizce) 3. sınıf öğrencisiyim. Gerçek zamanlı backend sistemleri, WebRTC/WebSocket iletişim altyapıları, işletmelere yönelik otomasyon araçları, mobil bulmaca/kelime oyunları, üretken yapay zeka video boru hatları ve donanım seviyesinde FSM tasarımları geliştiriyorum.</p>
+    <p class="about-text" data-lang="en">I am a 3rd-year Software Engineering (English) student at Erciyes University. I build real-time backend architectures, WebRTC/WebSocket systems, business automation tools, 2D mobile puzzle/word games, generative AI video pipelines, and hardware-level FSM designs.</p>
+
+    <div class="tags">
+      <span class="tag">Java & Spring Boot</span>
+      <span class="tag">Python (FastAPI / PyTorch / OpenCV)</span>
+      <span class="tag">PostgreSQL</span>
+      <span class="tag">WebSockets & WebRTC</span>
+      <span class="tag">Local LLM (Ollama)</span>
+      <span class="tag">C# & Unity</span>
+      <span class="tag">HTML5 / JS & Capacitor</span>
+      <span class="tag">Verilog HDL & Icarus Verilog</span>
+      <span class="tag">WhatsApp Business API</span>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <h2 data-lang="tr">Öne Çıkan Projelerim</h2>
+    <h2 data-lang="en">Featured Projects</h2>
+
+    <div class="cat">
+      <div class="cat-title" data-lang="tr">Gerçek Zamanlı Sistemler, Backend & İş Otomasyonu</div>
+      <div class="cat-title" data-lang="en">Real-Time Systems, Backend & Business Automation</div>
+      <div class="grid">
+        <div class="card" data-lang="tr"><h3>TeamFlow</h3><p><code>Spring Boot · PostgreSQL · WebSocket · WebRTC</code> ile geliştirilmiş; gerçek zamanlı sesli görüşme, anlık mesajlaşma ve sunucu/kanal mimarisi sunan tam kapsamlı iletişim platformu.</p></div>
+        <div class="card" data-lang="en"><h3>TeamFlow</h3><p>Full-stack real-time voice and text platform built with <code>Spring Boot · PostgreSQL · WebSocket · WebRTC</code>.</p></div>
+
+        <div class="card" data-lang="tr"><h3>WhatsApp Randevu & İşletme Otomasyonu</h3><p><code>FastAPI/Flask · PostgreSQL/SQLite · WhatsApp Business API</code> ile kuaför ve işletmeler için otomatik randevu alma, hatırlatma ve günlük program paneli.</p></div>
+        <div class="card" data-lang="en"><h3>WhatsApp Booking & Business Automation</h3><p>Appointment scheduling, reminders and dashboard for local businesses using <code>FastAPI/Flask · PostgreSQL/SQLite · WhatsApp Business API</code>.</p></div>
+
+        <div class="card" data-lang="tr"><h3>DesktopAssistant</h3><p>Sürekli wake-word dinleme, fuzzy intent eşleştirme, hava durumu API entegrasyonu, ses sentezi ve <code>PyAutoGUI</code> masaüstü otomasyonu içeren Python asistanı.</p></div>
+        <div class="card" data-lang="en"><h3>DesktopAssistant</h3><p>Python assistant with wake-word detection, fuzzy intent matching, weather API, speech synthesis and <code>PyAutoGUI</code> automation.</p></div>
+
+        <div class="card" data-lang="tr"><h3>QuestionGeneratorAI</h3><p>Öğrenciler ve eğitmenler için konuya özel çalışma soruları üreten yapay zeka destekli araç.</p></div>
+        <div class="card" data-lang="en"><h3>QuestionGeneratorAI</h3><p>AI-powered study question generator creating topic-tailored practice questions.</p></div>
+      </div>
+    </div>
+
+    <div class="cat">
+      <div class="cat-title" data-lang="tr">Oyun Geliştirme, Donanım Mimarisi & Görüntü/Video Hatları</div>
+      <div class="cat-title" data-lang="en">Game Development, Hardware Architecture & Media Pipelines</div>
+      <div class="grid">
+        <div class="card" data-lang="tr"><h3>Data Flow & Petek Izgaralı Kelime Oyunu</h3><p><code>HTML5/JS + Capacitor · C# (Unity)</code> ile geliştirilen; ızgara/akış mekanikleri, sıkı paketlenmiş petek harf dizilimi, lokalizasyon, liderlik tablosu ve kayıt sistemine sahip 2D mobil oyunlar.</p></div>
+        <div class="card" data-lang="en"><h3>Data Flow & Honeycomb Word Puzzle</h3><p>2D mobile puzzle/word games built with <code>HTML5/JS + Capacitor · C# (Unity)</code>, featuring hexagonal layouts, localization, leaderboards and save systems.</p></div>
+
+        <div class="card" data-lang="tr"><h3>Sobel Edge Detector FSM</h3><p>Bilgisayar Mimarisi kapsamında 4 kişilik ekiple tasarlanan, 3 bloklu FSM ve satır tamponu mantığına dayalı donanım kenar algılama devresi. <code>Icarus Verilog · EDA Playground · EPWave</code> ile doğrulandı; NumPy/Pillow tabanlı <code>streamedge_sim.py</code> simülatörüyle desteklendi.</p></div>
+        <div class="card" data-lang="en"><h3>Sobel Edge Detector FSM</h3><p>Team-engineered hardware edge-detection FSM with line-buffer architecture, validated via <code>Icarus Verilog · EDA Playground · EPWave</code>, alongside a NumPy/Pillow simulator (<code>streamedge_sim.py</code>).</p></div>
+
+        <div class="card" data-lang="tr"><h3>144 FPS Video Renderer & Google Flow Karakter Serisi</h3><p><code>Python · OpenCV</code> ile geliştirilen otomatik 144 FPS video render motoru ve Google Flow ile üretilen Numan Reis & Kerem odaklı kısa video serisi.</p></div>
+        <div class="card" data-lang="en"><h3>144 FPS Video Renderer & Google Flow Series</h3><p>Automated 144 FPS rendering pipeline in <code>Python · OpenCV</code> and a recurring short-form series featuring characters Numan Reis & Kerem.</p></div>
+      </div>
+    </div>
+
+    <div class="cat">
+      <div class="cat-title" data-lang="tr">Veri Analizi, Makine Öğrenmesi & OOP Uygulamaları</div>
+      <div class="cat-title" data-lang="en">Data Analysis, Machine Learning & OOP Applications</div>
+      <div class="grid">
+        <div class="card" data-lang="tr"><h3>Araç Fiyat Tahmini & Makine Öğrenmesi</h3><p><code>PyTorch</code> ve veri bilimi iş akışlarıyla araç ilan verileri üzerinde fiyat tahmin modelleri (Kaggle).</p></div>
+        <div class="card" data-lang="en"><h3>Vehicle Price Prediction & ML Experiments</h3><p>ML experimentation with <code>PyTorch</code> on vehicle listing datasets for price prediction (Kaggle).</p></div>
+
+        <div class="card" data-lang="tr"><h3>Air Quality Monitoring System</h3><p><code>Python · NumPy</code> ile geliştirilen laboratuvar veri analizi ve hava kalitesi izleme uygulaması.</p></div>
+        <div class="card" data-lang="en"><h3>Air Quality Monitoring System</h3><p>Lab data analysis and monitoring tool built with <code>Python · NumPy</code>.</p></div>
+
+        <div class="card" data-lang="tr"><h3>Virtual Book Club & Reading Challenge</h3><p>Kapsamlı OOP prensipleri ve kalıtım/sınıf hiyerarşisiyle kurgulanmış Java okuma kulübü platformu.</p></div>
+        <div class="card" data-lang="en"><h3>Virtual Book Club & Reading Challenge</h3><p>Java reading platform structured around OOP principles and class hierarchies.</p></div>
+
+        <div class="card" data-lang="tr"><h3>Masaüstü & OOP Sistemleri</h3><p>E-Ticaret simülasyonu, Java Swing Restoran Sipariş Formu, Library System, AdvancedPersonTableApp ve çeşitli mini araçlar.</p></div>
+        <div class="card" data-lang="en"><h3>Desktop & OOP Utilities</h3><p>E-commerce simulation, Java Swing Restaurant Order Form, Library System, AdvancedPersonTableApp, and mini tools.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact">
+    <h2 data-lang="tr">İletişim</h2>
+    <h2 data-lang="en">Contact</h2>
+    <a href="mailto:mstacr04@gmail.com">mstacr04@gmail.com</a>
+    <a href="https://github.com/mstacr06" target="_blank">github.com/mstacr06</a>
+  </section>
+
+  <footer>Hosted on GitHub Pages.</footer>
+</main>
+
+<script>
+  // Top progress bar
+  const bar = document.getElementById('progress');
+  const onScroll = () => {
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    bar.style.width = scrolled + '%';
+  };
+  document.addEventListener('scroll', onScroll, {passive:true});
+
+  // Language toggle
+  document.querySelectorAll('.langs button').forEach(b => {
+    b.addEventListener('click', () => {
+      document.documentElement.setAttribute('data-active', b.dataset.set);
+      document.querySelectorAll('.langs button').forEach(x => x.classList.remove('on'));
+      b.classList.add('on');
+    });
+  });
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.15, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.tag, .card').forEach((el, i) => {
+    el.style.transitionDelay = (i % 6) * 0.05 + 's';
+    io.observe(el);
+  });
+</script>
 </body>
 </html>
